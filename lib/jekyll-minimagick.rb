@@ -64,7 +64,8 @@ module Jekyll
         return unless site.config['mini_magick']
 
         site.config['mini_magick'].each_pair do |name, preset|
-          Dir.glob(File.join(site.source, preset['source'], "*.{png,jpg,jpeg,gif}")) do |source|
+          source = File.join(site.source, preset['source'], "*.{png,jpg,jpeg,git}")
+          Dir.glob(source, File::FNM_CASEFOLD) do |source|
             site.static_files << GeneratedImageFile.new(site, site.source, preset['destination'], File.basename(source), preset.clone)
           end
         end
